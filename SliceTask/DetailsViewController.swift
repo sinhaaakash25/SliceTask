@@ -162,6 +162,7 @@ class DetailsViewController: UIViewController {
       
         if (OffersDetails[index!]["isExpiringSoon"]) as? String == "true"{
             expireView.isHidden = false
+           
         }
         else {
             expireView.isHidden = true
@@ -173,6 +174,7 @@ class DetailsViewController: UIViewController {
         print("image Tapped")
         let pasteboard = UIPasteboard.general
         pasteboard.string = voucherCodeValue.text
+        
     }
     
     @objc func shareImageTapped(recognizer: UITapGestureRecognizer){

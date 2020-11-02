@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController , UITableViewDataSource , UITableViewDelegate , DetailCellDelegate {
     
     
-   
+    
     
     
     @IBOutlet weak var myView: UIView!
@@ -33,7 +33,12 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
         models.append(Model(imageName: "food3"))
         models.append(Model(imageName: "food4"))
         models.append(Model(imageName: "food5"))
-       
+        models.append(Model(imageName: "food1"))
+        models.append(Model(imageName: "food2"))
+        models.append(Model(imageName: "food3"))
+        models.append(Model(imageName: "food4"))
+        models.append(Model(imageName: "food5"))
+        
         
         
         tableView.register(TableViewCell.nib(), forCellReuseIdentifier: TableViewCell.identifier)
@@ -51,11 +56,12 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-           return 20
-       }
+        return 20
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as! TableViewCell
+        
         cell.configure(with: models)
         cell.delegate = self
         return cell
@@ -64,17 +70,28 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 270.0
     }
-
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        cell.frame.origin.x = -cell.frame.width
+        UIView.animate(withDuration: 0.7, delay: 0.2, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+            cell.frame.origin.x = 0
+        }, completion: nil)
+        
+        
+        
+    }
+    
     
     func didSelect(_ data: Int) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "moveToDetails") as? DetailsViewController
         vc?.index = data
         self.present(vc!, animated: true, completion: nil)
-           
-          }
+        
     }
-    
+}
+
 
 
 struct Model {
